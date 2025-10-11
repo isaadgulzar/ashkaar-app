@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    height: 120,
+    height: 160,
     borderRadius: 24,
     overflow: 'hidden',
     borderWidth: 1.5,
@@ -190,7 +190,8 @@ const styles = StyleSheet.create({
   },
   cardGradient: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 28,
+    paddingVertical: 16,
   },
   content: {
     flex: 1,
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 4,
   },
   counterSkeleton: {
     width: 80,
