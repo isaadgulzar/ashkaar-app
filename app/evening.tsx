@@ -2,7 +2,8 @@
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import SkeletonLoader from '../components/skeleton-loader';
 import ZikrCard from '../components/zikr-card';
 import { useAzkar } from '../hooks/use-azkar';
 
@@ -10,20 +11,9 @@ export default function EveningScreen() {
   const { azkar, loading, error, incrementCount, resetCount, resetAll } = useAzkar('evening');
 
   const completedCount = azkar.filter(z => (z.currentCount || 0) >= z.repetitions).length;
-  const totalProgress = azkar.length > 0 ? (completedCount / azkar.length) * 100 : 0;
 
   if (loading) {
-    return (
-      <LinearGradient
-        colors={['#355C7D', '#6C5B7B', '#F67280']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.container}
-      >
-        <ActivityIndicator size="large" color="#F67280" />
-        <Text style={styles.loadingText}>لوڈ ہو رہا ہے...</Text>
-      </LinearGradient>
-    );
+    return <SkeletonLoader count={5} type="evening" />;
   }
 
   if (error) {
