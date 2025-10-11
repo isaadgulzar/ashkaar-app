@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     flex: 1,
-    maxHeight: 200,
-    minHeight: 180,
+    maxHeight: 180,
+    minHeight: 160,
   },
   card: {
     flex: 1,
@@ -213,7 +213,8 @@ const styles = StyleSheet.create({
   },
   cardGradient: {
     flex: 1,
-    padding: 28,
+    paddingHorizontal: 28,
+    paddingVertical: 10,
   },
   cardContent: {
     flex: 1,
@@ -233,8 +234,8 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   cardEmoji: {
-    fontSize: 64,
-    lineHeight: 64,
+    fontSize: 60,
+    lineHeight: 70,
   },
   cardTitleUrdu: {
     fontSize: 26,
