@@ -2,7 +2,8 @@
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import SkeletonLoader from '../components/skeleton-loader';
 import ZikrCard from '../components/zikr-card';
 import { useAzkar } from '../hooks/use-azkar';
 
@@ -10,20 +11,9 @@ export default function MorningScreen() {
   const { azkar, loading, error, incrementCount, resetCount, resetAll } = useAzkar('morning');
 
   const completedCount = azkar.filter(z => (z.currentCount || 0) >= z.repetitions).length;
-  const totalProgress = azkar.length > 0 ? (completedCount / azkar.length) * 100 : 0;
 
   if (loading) {
-    return (
-      <LinearGradient
-        colors={['#FFD93D', '#FF9A56', '#A8D8EA']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.container}
-      >
-        <ActivityIndicator size="large" color="#FF9A56" />
-        <Text style={styles.loadingText}>لوڈ ہو رہا ہے...</Text>
-      </LinearGradient>
-    );
+    return <SkeletonLoader count={5} type="morning" />;
   }
 
   if (error) {
@@ -60,15 +50,21 @@ export default function MorningScreen() {
           <Text style={styles.subtitle}>Morning Azkar</Text>
         </View>
 
-        {/* Progress Overview */}
-        <View style={styles.progressOverview}>
+        {/* Progress Overview - Commented out */}
+        {/* <View style={styles.progressOverview}>
           <Text style={styles.progressText}>
             {completedCount} / {azkar.length}
           </Text>
           <View style={styles.progressBarContainer}>
             <View style={[styles.progressBarFill, { width: `${totalProgress}%` }]} />
           </View>
-        </View>
+        </View> */}
+      </View>
+
+      {/* Help Text */}
+      <View style={styles.helpContainer}>
+        <Text style={styles.helpText}>ہر کارڈ پر ٹیپ کرکے شمار کریں</Text>
+        <Text style={styles.helpTextEng}>Tap each card to count</Text>
       </View>
 
       {/* Azkar List */}
@@ -183,6 +179,26 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#FF9A56',
     borderRadius: 4,
+  },
+  helpContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    marginHorizontal: 20,
+    marginBottom: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  helpText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#7C4A2C',
+    marginBottom: 2,
+  },
+  helpTextEng: {
+    fontSize: 12,
+    color: '#B5793A',
+    opacity: 0.8,
   },
   listContent: {
     padding: 20,
