@@ -78,12 +78,12 @@ export default function ZikrCard({ zikr, onIncrement, onReset }: ZikrCardProps) 
             </View>
           </View>
 
-          {/* Tap indicator */}
-          {!isCompleted && (
+          {/* Tap indicator - Commented out to prevent text overlap */}
+          {/* {!isCompleted && (
             <View style={styles.tapIndicator}>
               <Text style={styles.tapText}>TAP</Text>
             </View>
-          )}
+          )} */}
         </BlurView>
       </TouchableOpacity>
 
