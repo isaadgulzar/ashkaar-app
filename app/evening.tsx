@@ -60,15 +60,21 @@ export default function EveningScreen() {
           <Text style={styles.subtitle}>Evening Azkar</Text>
         </View>
 
-        {/* Progress Overview */}
-        <View style={styles.progressOverview}>
+        {/* Progress Overview - Commented out */}
+        {/* <View style={styles.progressOverview}>
           <Text style={styles.progressText}>
             {completedCount} / {azkar.length}
           </Text>
           <View style={styles.progressBarContainer}>
             <View style={[styles.progressBarFill, { width: `${totalProgress}%` }]} />
           </View>
-        </View>
+        </View> */}
+      </View>
+
+      {/* Help Text */}
+      <View style={styles.helpContainer}>
+        <Text style={styles.helpText}>ہر کارڈ پر ٹیپ کرکے شمار کریں</Text>
+        <Text style={styles.helpTextEng}>Tap each card to count</Text>
       </View>
 
       {/* Azkar List */}
@@ -183,6 +189,26 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#F67280',
     borderRadius: 4,
+  },
+  helpContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    marginHorizontal: 20,
+    marginBottom: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  helpText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#e9d5ff',
+    marginBottom: 2,
+  },
+  helpTextEng: {
+    fontSize: 12,
+    color: '#c4b5fd',
+    opacity: 0.8,
   },
   listContent: {
     padding: 20,
