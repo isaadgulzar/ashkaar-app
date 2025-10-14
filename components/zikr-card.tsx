@@ -124,10 +124,10 @@ export default function ZikrCard({ zikr, onIncrement, onReset }: ZikrCardProps) 
                   <Text style={styles.modalUrdu}>{zikr.urduTranslation}</Text>
                 </View>
 
-                {/* Fazilat */}
+                {/* Benefits */}
                 <View style={styles.section}>
                   <Text style={styles.sectionLabel}>فضیلت</Text>
-                  <Text style={styles.modalFazilat}>{zikr.fazilat}</Text>
+                  <Text style={styles.modalBenefits}>{zikr.benefits}</Text>
                 </View>
 
                 {/* Repetitions */}
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     lineHeight: 28,
   },
-  modalFazilat: {
+  modalBenefits: {
     fontSize: 15,
     color: '#059669',
     textAlign: 'right',
