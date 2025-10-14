@@ -34,7 +34,7 @@ import { Zikr } from '../types/azkar';
             transliteration: data.transliteration,
             urduTranslation: data.urduTranslation,
             repetitions: data.repetitions,
-            fazilat: data.fazilat,
+            benefits: data.benefits,
             category: data.category,
             order: data.order,
             currentCount: 0
