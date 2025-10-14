@@ -1,16 +1,39 @@
 // app/evening.tsx
 
-import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import SkeletonLoader from '../components/skeleton-loader';
-import ZikrCard from '../components/zikr-card';
-import { useAzkar } from '../hooks/use-azkar';
+import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
+import { useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import DisplaySettingsModal from "../components/DisplaySettingsModal";
+import SkeletonLoader from "../components/skeleton-loader";
+import ZikrCard from "../components/zikr-card";
+import { useLanguage } from "../contexts/LanguageContext";
+import { useAzkar } from "../hooks/use-azkar";
+import { useAppTranslations } from "../utils/translations";
 
 export default function EveningScreen() {
-  const { azkar, loading, error, incrementCount, resetCount, resetAll } = useAzkar('evening');
+  const {
+    azkar,
+    loading,
+    error,
+    incrementCount,
+    decrementCount,
+    resetCount,
+    resetAll,
+  } = useAzkar("evening");
+  const [showDisplaySettings, setShowDisplaySettings] = useState(false);
+  const { getDisplayLanguage } = useLanguage();
+  const { t } = useAppTranslations(getDisplayLanguage());
 
-  const completedCount = azkar.filter(z => (z.currentCount || 0) >= z.repetitions).length;
+  const completedCount = azkar.filter(
+    (z) => (z.currentCount || 0) >= z.repetitions
+  ).length;
 
   if (loading) {
     return <SkeletonLoader count={5} type="evening" />;
@@ -19,13 +42,16 @@ export default function EveningScreen() {
   if (error) {
     return (
       <LinearGradient
-        colors={['#1e1b4b', '#312e81', '#4c1d95']}
+        colors={["#1e1b4b", "#312e81", "#4c1d95"]}
         style={styles.container}
       >
         <View style={styles.errorContainer}>
           <Text style={styles.errorEmoji}>⚠️</Text>
           <Text style={styles.errorText}>{error}</Text>
-          <TouchableOpacity style={styles.retryButton} onPress={() => window.location.reload()}>
+          <TouchableOpacity
+            style={styles.retryButton}
+            onPress={() => window.location.reload()}
+          >
             <Text style={styles.retryText}>دوبارہ کوشش کریں</Text>
           </TouchableOpacity>
         </View>
@@ -35,15 +61,29 @@ export default function EveningScreen() {
 
   return (
     <LinearGradient
-      colors={['#355C7D', '#6C5B7B', '#F67280']}
+      colors={["#355C7D", "#6C5B7B", "#F67280"]}
       style={styles.container}
     >
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backIcon}>←</Text>
-        </TouchableOpacity>
-        
+        <View style={styles.headerRow}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={styles.backButton}
+          >
+            <Text style={styles.backIcon}>←</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.appName}>عَشْکَار</Text>
+
+          <TouchableOpacity
+            style={styles.settingsButton}
+            onPress={() => setShowDisplaySettings(true)}
+          >
+            <Text style={styles.settingsIcon}>⚙️</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.headerContent}>
           <Text style={styles.emoji}>🌙</Text>
           <Text style={styles.title}>شام کے اذکار</Text>
@@ -63,8 +103,7 @@ export default function EveningScreen() {
 
       {/* Help Text */}
       <View style={styles.helpContainer}>
-        <Text style={styles.helpText}>ہر کارڈ پر ٹیپ کرکے شمار کریں</Text>
-        <Text style={styles.helpTextEng}>Tap each card to count</Text>
+        <Text style={styles.helpText}>{t("helpText")}</Text>
       </View>
 
       {/* Azkar List */}
@@ -77,6 +116,7 @@ export default function EveningScreen() {
           <ZikrCard
             zikr={item}
             onIncrement={() => incrementCount(item.id)}
+            onDecrement={() => decrementCount(item.id)}
             onReset={() => resetCount(item.id)}
           />
         )}
@@ -92,12 +132,21 @@ export default function EveningScreen() {
               <Text style={styles.completionSubtitle}>
                 اللہ تعالیٰ آپ کی عبادت قبول فرمائے
               </Text>
-              <TouchableOpacity style={styles.resetAllButtonPurple} onPress={resetAll}>
+              <TouchableOpacity
+                style={styles.resetAllButtonPurple}
+                onPress={resetAll}
+              >
                 <Text style={styles.resetAllTextWhite}>دوبارہ شروع کریں</Text>
               </TouchableOpacity>
             </View>
           ) : null
         }
+      />
+
+      {/* Display Settings Modal */}
+      <DisplaySettingsModal
+        visible={showDisplaySettings}
+        onClose={() => setShowDisplaySettings(false)}
       />
     </LinearGradient>
   );
@@ -111,29 +160,58 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 20,
     paddingBottom: 16,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   backButton: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.4)',
-    shadowColor: '#000',
+    borderColor: "rgba(255, 255, 255, 0.4)",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
   },
   backIcon: {
     fontSize: 24,
-    color: '#e9d5ff',
+    color: "#e9d5ff",
+  },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+    height: 44,
+  },
+  appName: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#e9d5ff",
+    textAlign: "center",
+  },
+  settingsButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1.5,
+    borderColor: "rgba(255, 255, 255, 0.4)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+  },
+  settingsIcon: {
+    fontSize: 20,
   },
   headerContent: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 12,
   },
   emoji: {
@@ -142,63 +220,58 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#e9d5ff',
+    fontWeight: "700",
+    color: "#e9d5ff",
     marginBottom: 2,
   },
   subtitle: {
     fontSize: 14,
-    color: '#c4b5fd',
+    color: "#c4b5fd",
     opacity: 0.8,
   },
   progressOverview: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 16,
     padding: 14,
     borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
-    shadowColor: '#000',
+    borderColor: "rgba(255, 255, 255, 0.3)",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 12,
   },
   progressText: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#e9d5ff',
-    textAlign: 'center',
+    fontWeight: "700",
+    color: "#e9d5ff",
+    textAlign: "center",
     marginBottom: 8,
   },
   progressBarContainer: {
     height: 8,
-    backgroundColor: 'rgba(233, 213, 255, 0.2)',
+    backgroundColor: "rgba(233, 213, 255, 0.2)",
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   progressBarFill: {
-    height: '100%',
-    backgroundColor: '#F67280',
+    height: "100%",
+    backgroundColor: "#F67280",
     borderRadius: 4,
   },
   helpContainer: {
     paddingHorizontal: 20,
     paddingVertical: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     marginHorizontal: 20,
     marginBottom: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
   },
   helpText: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#e9d5ff',
-    marginBottom: 2,
-  },
-  helpTextEng: {
-    fontSize: 12,
-    color: '#c4b5fd',
-    opacity: 0.8,
+    fontWeight: "600",
+    color: "#e9d5ff",
+    textAlign: "center",
   },
   listContent: {
     padding: 20,
@@ -207,10 +280,10 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     fontSize: 16,
-    color: '#c4b5fd',
+    color: "#c4b5fd",
   },
   errorContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 40,
   },
   errorEmoji: {
@@ -219,48 +292,48 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#c4b5fd',
-    textAlign: 'center',
+    color: "#c4b5fd",
+    textAlign: "center",
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 12,
   },
   retryText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#e9d5ff',
+    fontWeight: "600",
+    color: "#e9d5ff",
   },
   resetAllButton: {
     marginTop: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     padding: 18,
     borderRadius: 16,
-    alignItems: 'center',
+    alignItems: "center",
     borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.4)',
-    shadowColor: '#000',
+    borderColor: "rgba(255, 255, 255, 0.4)",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
   },
   resetAllText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#e9d5ff',
+    fontWeight: "600",
+    color: "#e9d5ff",
   },
   completionCard: {
     marginTop: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
     padding: 36,
     borderRadius: 24,
-    alignItems: 'center',
+    alignItems: "center",
     borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.4)',
-    shadowColor: '#000',
+    borderColor: "rgba(255, 255, 255, 0.4)",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.25,
     shadowRadius: 16,
@@ -271,26 +344,26 @@ const styles = StyleSheet.create({
   },
   completionTitle: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#e9d5ff',
+    fontWeight: "700",
+    color: "#e9d5ff",
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   completionSubtitle: {
     fontSize: 16,
-    color: '#c4b5fd',
-    textAlign: 'center',
+    color: "#c4b5fd",
+    textAlign: "center",
     marginBottom: 24,
   },
   resetAllButtonPurple: {
-    backgroundColor: '#F67280',
+    backgroundColor: "#F67280",
     paddingHorizontal: 32,
     paddingVertical: 14,
     borderRadius: 12,
   },
   resetAllTextWhite: {
     fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: "600",
+    color: "white",
   },
 });
