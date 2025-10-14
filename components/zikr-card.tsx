@@ -56,12 +56,12 @@ export default function ZikrCard({ zikr, onIncrement, onReset }: ZikrCardProps) 
           {/* Content */}
           <View style={styles.content}>
             {/* Arabic Text */}
-            <Text style={styles.arabicText} numberOfLines={2}>
+            <Text style={styles.arabicText}>
               {zikr.arabic}
             </Text>
 
             {/* Transliteration */}
-            <Text style={styles.transliteration} numberOfLines={1}>
+            <Text style={styles.transliteration}>
               {zikr.transliteration}
             </Text>
 
