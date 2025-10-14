@@ -3,17 +3,23 @@
 
 import { Stack } from 'expo-router';
 import { ThemeProvider } from '../contexts/ThemeContext';
+import { LanguageProvider } from '../contexts/LanguageContext';
+import { DisplaySettingsProvider } from '../contexts/DisplaySettingsContext';
 
 export default function RootLayout() {
   return (
-    <ThemeProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="morning" options={{ headerShown: false }} />
-        <Stack.Screen name="evening" options={{ headerShown: false }} />
-        <Stack.Screen name="admin" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <LanguageProvider>
+      <DisplaySettingsProvider>
+        <ThemeProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="morning" options={{ headerShown: false }} />
+            <Stack.Screen name="evening" options={{ headerShown: false }} />
+            <Stack.Screen name="admin" options={{ headerShown: false }} />
+          </Stack>
+        </ThemeProvider>
+      </DisplaySettingsProvider>
+    </LanguageProvider>
   );
 }
