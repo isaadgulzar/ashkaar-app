@@ -3,7 +3,7 @@
 
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import {
   Dimensions,
   StyleSheet,
@@ -16,6 +16,8 @@ import {
 const { width } = Dimensions.get("window");
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
     <LinearGradient
       colors={["#FFD93D", "#FF9A56", "#A8D8EA"]}
