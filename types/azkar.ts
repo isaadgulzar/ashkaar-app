@@ -4,7 +4,7 @@ export interface Zikr {
     transliteration: string;
     urduTranslation: string;
     repetitions: number;
-    fazilat: string;
+    benefits: string;
     category: 'morning' | 'evening' | 'both';
     order: number;
     currentCount?: number; // For tracking user progress
