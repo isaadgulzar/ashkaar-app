@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, FirebaseApp } from "firebase/app";
+import { getFirestore, Firestore } from "firebase/firestore";
 import Constants from "expo-constants";
 
 const firebaseConfig = {
@@ -12,10 +12,34 @@ const firebaseConfig = {
   measurementId: Constants.expoConfig?.extra?.firebaseMeasurementId
 };
 
+// Validate Firebase configuration
+const validateFirebaseConfig = () => {
+  const required = ['apiKey', 'projectId', 'appId'];
+  const missing = required.filter(key => !firebaseConfig[key as keyof typeof firebaseConfig]);
+
+  if (missing.length > 0) {
+    console.error('❌ Missing Firebase configuration:', missing);
+    console.error('💡 Please check your .env file and ensure these variables are set:');
+    missing.forEach(key => {
+      console.error(`   - FIREBASE_${key.replace(/([A-Z])/g, '_$1').toUpperCase()}`);
+    });
+    throw new Error(`Missing Firebase configuration: ${missing.join(', ')}`);
+  }
+};
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let app: FirebaseApp;
+let db: Firestore;
 
-// Initialize Firestore
-export const db = getFirestore(app);
+try {
+  validateFirebaseConfig();
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  console.log('✅ Firebase initialized successfully');
+} catch (error) {
+  console.error('❌ Firebase initialization failed:', error);
+  throw error;
+}
 
+export { db };
 export default app;
