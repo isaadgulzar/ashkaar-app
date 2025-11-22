@@ -2,38 +2,97 @@
 // Temporary screen to seed Firebase
 // Access via: yourapp://admin or navigate manually
 
-import { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { seedFirestore } from '../scripts/seed-firebase';
+import { db } from '../config/firebase';
 
 export default function AdminScreen() {
   const [loading, setLoading] = useState(false);
   const [seeded, setSeeded] = useState(false);
+  const [firebaseReady, setFirebaseReady] = useState(false);
+
+  useEffect(() => {
+    // Check if Firebase is initialized
+    try {
+      if (db) {
+        console.log('✅ Firebase initialized successfully');
+        setFirebaseReady(true);
+      } else {
+        console.error('❌ Firebase db is undefined');
+      }
+    } catch (error) {
+      console.error('❌ Firebase initialization error:', error);
+    }
+  }, []);
 
   const handleSeed = async () => {
-    Alert.alert(
-      'Seed Database',
-      'This will add all azkar to Firestore. Continue?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Yes, Seed',
-          onPress: async () => {
-            try {
-              setLoading(true);
-              await seedFirestore();
-              setSeeded(true);
-              Alert.alert('Success!', 'Database seeded successfully! ✅');
-            } catch (error) {
-              Alert.alert('Error', 'Failed to seed database. Check console.');
-              console.error(error);
-            } finally {
-              setLoading(false);
+    console.log('🔘 Seed button clicked');
+    console.log('📊 Current state:', { loading, seeded, firebaseReady });
+
+    if (!firebaseReady) {
+      console.warn('⚠️ Firebase not ready, button should be disabled');
+      Alert.alert('Error', 'Firebase is not initialized. Please check your configuration.');
+      return;
+    }
+
+    // For web, use window.confirm since Alert doesn't work the same way
+    if (Platform.OS === 'web') {
+      const confirmed = window.confirm('This will add all azkar to Firestore. Continue?');
+      console.log('💬 User confirmation:', confirmed);
+
+      if (!confirmed) {
+        console.log('❌ User cancelled seed');
+        return;
+      }
+
+      console.log('✅ User confirmed seed (web)');
+      try {
+        setLoading(true);
+        console.log('🚀 Starting seed process...');
+        await seedFirestore();
+        console.log('✅ Seed completed successfully');
+        setSeeded(true);
+        window.alert('Database seeded successfully! ✅');
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('❌ Seed error:', error);
+        window.alert(`Failed to seed database: ${errorMessage}`);
+      } finally {
+        setLoading(false);
+        console.log('🏁 Seed process finished');
+      }
+    } else {
+      // For native platforms, use Alert
+      Alert.alert(
+        'Seed Database',
+        'This will add all azkar to Firestore. Continue?',
+        [
+          { text: 'Cancel', style: 'cancel', onPress: () => console.log('❌ User cancelled seed') },
+          {
+            text: 'Yes, Seed',
+            onPress: async () => {
+              console.log('✅ User confirmed seed');
+              try {
+                setLoading(true);
+                console.log('🚀 Starting seed process...');
+                await seedFirestore();
+                console.log('✅ Seed completed successfully');
+                setSeeded(true);
+                Alert.alert('Success!', 'Database seeded successfully! ✅');
+              } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+                console.error('❌ Seed error:', error);
+                Alert.alert('Error', `Failed to seed database: ${errorMessage}`);
+              } finally {
+                setLoading(false);
+                console.log('🏁 Seed process finished');
+              }
             }
           }
-        }
-      ]
-    );
+        ]
+      );
+    }
   };
 
   return (
@@ -55,10 +114,18 @@ export default function AdminScreen() {
           • And more...
         </Text>
 
+        {!firebaseReady && (
+          <View style={styles.warningBox}>
+            <Text style={styles.warningText}>
+              ⚠️ Firebase not initialized. Check your .env configuration.
+            </Text>
+          </View>
+        )}
+
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={[styles.button, (loading || !firebaseReady) && styles.buttonDisabled]}
           onPress={handleSeed}
-          disabled={loading || seeded}
+          disabled={loading || seeded || !firebaseReady}
         >
           <Text style={styles.buttonText}>
             {loading ? '⏳ Seeding...' : seeded ? '✅ Seeded!' : '🌱 Seed Database'}
@@ -153,6 +220,17 @@ const styles = StyleSheet.create({
   },
   successText: {
     color: '#065f46',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  warningBox: {
+    marginBottom: 16,
+    backgroundColor: '#fef3c7',
+    padding: 16,
+    borderRadius: 8,
+  },
+  warningText: {
+    color: '#92400e',
     fontSize: 14,
     lineHeight: 20,
   },
