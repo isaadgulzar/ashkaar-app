@@ -48,7 +48,7 @@ export default function HomeScreen() {
       {/* Cards */}
       <View style={styles.cardsContainer}>
         {/* Morning Card */}
-        <Link href="/morning" asChild>
+        <Link href="/(tabs)/morning" asChild>
           <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
             <BlurView intensity={50} tint="light" style={styles.card}>
               <LinearGradient
@@ -79,7 +79,7 @@ export default function HomeScreen() {
         </Link>
 
         {/* Evening Card */}
-        <Link href="/evening" asChild>
+        <Link href="/(tabs)/evening" asChild>
           <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
             <BlurView intensity={50} tint="light" style={styles.card}>
               <LinearGradient
