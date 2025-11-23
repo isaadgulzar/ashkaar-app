@@ -788,6 +788,174 @@ const azkarData: ZikrData[] = [
   }
 ];
 
+// After-prayer azkar data
+const afterPrayerAzkarData = [
+  {
+    id: "takbir_after_salam",
+    arabic: "اللَّهُ أَكْبَرُ",
+    translations: {
+      en: "Allah is the Greatest",
+      ur: "اللہ سب سے بڑا ہے",
+      bn: "আল্লাহ সর্বমহান",
+      hi: "अल्लाह सब से बड़ा है",
+      id: "Allah Maha Besar"
+    },
+    transliteration: {
+      en: "Allahu Akbar",
+      ur: "اللہ اکبر",
+      bn: "আল্লাহু আকবার",
+      hi: "अल्लाहु अकबर",
+      id: "Allahu Akbar"
+    },
+    benefits: {},
+    repetitions: 1,
+    category: ["after_prayer"],
+    order: 1,
+    references: [
+      { bookId: "Bukhari", number: 842 },
+      { bookId: "Muslim", number: 1316 }
+    ]
+  },
+  {
+    id: "astaghfirullah_3_times",
+    arabic: "أَسْتَغْفِرُ اللَّهَ",
+    translations: {
+      en: "I ask Allah for forgiveness",
+      ur: "میں اللہ سے بخشش مانگتا ہوں",
+      bn: "আমি আল্লাহর কাছে ক্ষমা চাই",
+      hi: "मैं अल्लाह से माफ़ी मांगता हूं",
+      id: "Aku memohon ampunan kepada Allah"
+    },
+    transliteration: {
+      en: "Astaghfirullah",
+      ur: "استغفر اللہ",
+      bn: "আস্তাগফিরুল্লাহ",
+      hi: "अस्तग़फ़िरुल्लाह",
+      id: "Astaghfirullaah"
+    },
+    benefits: {},
+    repetitions: 3,
+    category: ["after_prayer"],
+    order: 2,
+    references: [
+      { bookId: "Muslim", number: 1334 }
+    ]
+  },
+  {
+    id: "allahumma_antas_salam",
+    arabic: "اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",
+    translations: {
+      en: "O Allah! You are As-Salam and from You is all peace, blessed are You, Possessor of majesty and honor",
+      ur: "اے اللہ! تو سلامتی والا ہے اور تجھ سے سلامتی ہے، تو بابرکت ہے، اے بزرگی اور عزت والے",
+      bn: "হে আল্লাহ! তুমি শান্তি এবং তোমা থেকেই শান্তি, তুমি বরকতময়, হে মহিমা ও সম্মানের অধিকারী",
+      hi: "ऐ अल्लाह! तू सलामती वाला है और तुझसे सलामती है, तू बाबरकत है, ऐ बुज़ुर्गी और इज़्ज़त वाले",
+      id: "Ya Allah! Engkau adalah As-Salam dan dari-Mu keselamatan, Maha Suci Engkau wahai Pemilik Keagungan dan Kemuliaan"
+    },
+    transliteration: {
+      en: "Allahumma Antas-Salamu wa minkas-salamu tabarakta ya Dhal-Jalali wal-Ikram",
+      ur: "اللہم انت السلام ومنک السلام تبارکت یا ذالجلال والاکرام",
+      bn: "আল্লাহুম্মা আনতাস সালামু ওয়া মিনকাস সালামু তাবারাকতা ইয়া যাল জালালি ওয়াল ইকরাম",
+      hi: "अल्लाहुम्मा अन्तस्सलामु व मिन्कस्सलामु तबारक्ता या ज़ल्जलालि वल्इकराम",
+      id: "Allaahumma Antas-Salaamu wa minkas-salaamu tabaarakta yaa Dzal-Jalaali wal-Ikraam"
+    },
+    benefits: {},
+    repetitions: 1,
+    category: ["after_prayer"],
+    order: 3,
+    references: [
+      { bookId: "Muslim", number: 1334 }
+    ]
+  },
+  {
+    id: "ayatul_kursi_after_prayer",
+    arabic: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",
+    translations: {
+      en: "Allah! There is no deity except Him, the Ever-Living, the Sustainer of all existence",
+      ur: "اللہ! نہیں کوئی معبود سوائے اس کے، وہ زندہ ہے قائم رکھنے والا",
+      bn: "আল্লাহ! তিনি ছাড়া কোনো উপাস্য নেই, তিনি চিরঞ্জীব",
+      hi: "अल्लाह! उसके सिवा कोई माबूद नहीं",
+      id: "Allah, tidak ada Tuhan yang berhak disembah melainkan Dia"
+    },
+    transliteration: {
+      en: "Allahu la ilaha illa Huwal Hayyul Qayyum",
+      ur: "اللہ لا الہ الا ھو الحی القیوم",
+      bn: "আল্লাহু লা ইলাহা ইল্লা হুওয়াল হাইয়ুল কাইয়ূম",
+      hi: "अल्लाहु ला इलाहा इल्ला हुवल हय्युल क़य्यूम",
+      id: "Allaahu laa ilaaha illaa Huwal Hayyul Qayyuum"
+    },
+    benefits: {
+      en: "Whoever recites Ayat al-Kursi after every prayer will enter paradise",
+      ur: "جو شخص ہر نماز کے بعد آیت الکرسی پڑھے وہ جنت میں داخل ہوگا",
+      bn: "যে ব্যক্তি প্রতি নামাজের পর আয়াতুল কুরসি পাঠ করবে সে জান্নাতে প্রবেশ করবে",
+      hi: "जो शख़्स हर नमाज़ के बाद आयतल कुर्सी पढ़े वो जन्नत में दाख़िल होगा",
+      id: "Barangsiapa membaca Ayat Kursi setelah setiap shalat akan masuk surga"
+    },
+    repetitions: 1,
+    category: ["after_prayer"],
+    order: 4,
+    references: [
+      { bookId: "nasai", number: 9928 }
+    ]
+  },
+  {
+    id: "subhanallah_33_after_prayer",
+    arabic: "سُبْحَانَ اللَّهِ (33) الْحَمْدُ لِلَّهِ (33) اللَّهُ أَكْبَرُ (33)",
+    translations: {
+      en: "Glory be to Allah (33) All praise is for Allah (33) Allah is the Greatest (33)",
+      ur: "اللہ پاک ہے (33) تمام تعریفیں اللہ کے لیے ہیں (33) اللہ سب سے بڑا ہے (33)",
+      bn: "আল্লাহ পবিত্র (৩৩) সমস্ত প্রশংসা আল্লাহর জন্য (৩৩) আল্লাহ সর্বমহান (৩৩)",
+      hi: "अल्लाह पाक है (33) तमाम तारीफ़ें अल्लाह के लिए हैं (33) अल्लाह सबसे बड़ा है (33)",
+      id: "Maha Suci Allah (33) Segala puji bagi Allah (33) Allah Maha Besar (33)"
+    },
+    transliteration: {
+      en: "SubhanAllah (33) Alhamdulillah (33) Allahu Akbar (33)",
+      ur: "سبحان اللہ (33) الحمد للہ (33) اللہ اکبر (33)",
+      bn: "সুবহানাল্লাহ (৩৩) আলহামদুলিল্লাহ (৩৩) আল্লাহু আকবার (৩৩)",
+      hi: "सुब्हानल्लाह (33) अल्हम्दुलिल्लाह (33) अल्लाहु अकबर (33)",
+      id: "Subhaanallaah (33) Alhamdulillaah (33) Allaahu Akbar (33)"
+    },
+    benefits: {
+      en: "All sins forgiven even if like the foam of the sea",
+      ur: "تمام گناہ معاف کر دیے جاتے ہیں",
+      bn: "সকল গুনাহ মাফ করে দেওয়া হবে",
+      hi: "तमाम गुनाह माफ़ कर दिए जाते हैं",
+      id: "Semua dosanya akan diampuni"
+    },
+    repetitions: 99,
+    category: ["after_prayer"],
+    order: 5,
+    references: [
+      { bookId: "Muslim", number: 1352 },
+      { bookId: "Bukhari", number: 843 }
+    ]
+  },
+  {
+    id: "la_ilaha_100_after_prayer",
+    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+    translations: {
+      en: "There is none worthy of worship but Allah alone, His is the dominion and praise",
+      ur: "نہیں کوئی معبود مگر اللہ، اسی کی بادشاہی ہے",
+      bn: "আল্লাহ ছাড়া কোনো মাবুদ নেই",
+      hi: "नहीं कोई माबूद मगर अल्लाह",
+      id: "Tiada Tuhan yang berhak disembah selain Allah"
+    },
+    transliteration: {
+      en: "La ilaha illallahu wahdahu la sharika lah",
+      ur: "لا الہ الا اللہ وحدہ لا شریک لہ",
+      bn: "লা ইলাহা ইল্লাল্লাহু ওয়াহদাহু",
+      hi: "ला इलाहा इल्लल्लाहु वहदहु",
+      id: "Laa ilaaha illallaahu wahdahu"
+    },
+    benefits: {},
+    repetitions: 1,
+    category: ["after_prayer"],
+    order: 6,
+    references: [
+      { bookId: "Muslim", number: 1352 }
+    ]
+  }
+];
+
 export async function seedFirestore() {
   console.log(
     "🌱 Starting Firestore seeding with complete multilingual azkar data..."
@@ -796,14 +964,25 @@ export async function seedFirestore() {
   try {
     const azkarCollection = collection(db, "azkar");
 
+    // Seed morning/evening azkar
     for (const zikr of azkarData) {
       const { id, ...data } = zikr;
       await setDoc(doc(azkarCollection, id), data);
       console.log(`✅ Added: ${id}`);
     }
 
-    console.log("🎉 Firestore seeding completed successfully!");
-    console.log(`📊 Total azkar added: ${azkarData.length}`);
+    // Seed after-prayer azkar
+    console.log("\n🕌 Seeding after-prayer azkar...");
+    for (const zikr of afterPrayerAzkarData) {
+      const { id, ...data } = zikr;
+      await setDoc(doc(azkarCollection, id), data);
+      console.log(`✅ Added: ${id}`);
+    }
+
+    console.log("\n🎉 Firestore seeding completed successfully!");
+    console.log(`📊 Total azkar added: ${azkarData.length + afterPrayerAzkarData.length}`);
+    console.log(`   - Morning/Evening: ${azkarData.length}`);
+    console.log(`   - After Prayer: ${afterPrayerAzkarData.length}`);
     console.log(
       "🌍 Languages supported: Arabic, English, Urdu, Bengali, Hindi, Indonesian"
     );
