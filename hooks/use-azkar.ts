@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import azkarService from "../services/azkar-service";
 import { Zikr } from "../types/azkar";
 
-export function useAzkar(category: "morning" | "evening") {
+export function useAzkar(category: "morning" | "evening" | "after_prayer") {
   const [azkar, setAzkar] = useState<Zikr[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
