@@ -17,7 +17,7 @@ export interface Zikr {
     [languageCode: string]: string;
   };
   repetitions: number;
-  category: "morning" | "evening" | "both";
+  category: ("morning" | "evening" | "after_prayer")[]; // Array of categories
   order: number;
   references: HadithReference[];
   currentCount?: number; // For tracking user progress
