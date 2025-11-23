@@ -14,12 +14,12 @@ class AzkarService {
   private collectionName = "azkar";
 
   // Fetch azkar by category
-  async getAzkarByCategory(category: "morning" | "evening"): Promise<Zikr[]> {
+  async getAzkarByCategory(category: "morning" | "evening" | "after_prayer"): Promise<Zikr[]> {
     try {
       const azkarRef = collection(db, this.collectionName);
       const q = query(
         azkarRef,
-        where("category", "in", [category, "both"]),
+        where("category", "array-contains", category),
         orderBy("order", "asc")
       );
 
@@ -35,7 +35,7 @@ class AzkarService {
           transliteration: data.transliteration || {},
           benefits: data.benefits || {},
           repetitions: data.repetitions,
-          category: data.category,
+          category: data.category || [],
           order: data.order,
           references: data.references || [],
           currentCount: 0,
