@@ -64,6 +64,12 @@ export default function TabLayout() {
           href: null, // Hide from tab bar (don't show as a tab button, but show the tab bar itself)
         }}
       />
+      <Tabs.Screen
+        name="after-prayer"
+        options={{
+          href: null, // Hide from tab bar (don't show as a tab button, but show the tab bar itself)
+        }}
+      />
     </Tabs>
   );
 }
