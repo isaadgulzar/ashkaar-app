@@ -9,7 +9,7 @@ import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 const { width } = Dimensions.get('window');
 
 interface SkeletonCardProps {
-  type?: 'morning' | 'evening';
+  type?: 'morning' | 'evening' | 'after_prayer';
 }
 
 export function SkeletonCard({ type = 'morning' }: SkeletonCardProps) {
@@ -43,7 +43,9 @@ export function SkeletonCard({ type = 'morning' }: SkeletonCardProps) {
 
   const gradientColors = type === 'morning'
     ? ['#FFD93D', '#FF9A56', '#A8D8EA']
-    : ['#355C7D', '#6C5B7B', '#F67280'];
+    : type === 'evening'
+    ? ['#355C7D', '#6C5B7B', '#F67280']
+    : ['#E3F2FD', '#90CAF9', '#42A5F5'];
 
   return (
     <View style={styles.cardWrapper}>
@@ -91,13 +93,15 @@ export function SkeletonCard({ type = 'morning' }: SkeletonCardProps) {
 
 interface SkeletonLoaderProps {
   count?: number;
-  type?: 'morning' | 'evening';
+  type?: 'morning' | 'evening' | 'after_prayer';
 }
 
 export default function SkeletonLoader({ count = 3, type = 'morning' }: SkeletonLoaderProps) {
   const gradientColors = type === 'morning'
     ? ['#FFD93D', '#FF9A56', '#A8D8EA']
-    : ['#355C7D', '#6C5B7B', '#F67280'];
+    : type === 'evening'
+    ? ['#355C7D', '#6C5B7B', '#F67280']
+    : ['#E3F2FD', '#90CAF9', '#42A5F5'];
 
   return (
     <LinearGradient
