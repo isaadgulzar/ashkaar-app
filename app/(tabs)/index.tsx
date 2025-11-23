@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link, useRouter } from "expo-router";
 import {
   Dimensions,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -46,7 +47,11 @@ export default function HomeScreen() {
       </View>
 
       {/* Cards */}
-      <View style={styles.cardsContainer}>
+      <ScrollView
+        style={styles.cardsContainer}
+        contentContainerStyle={styles.cardsContent}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Morning Card */}
         <Link href="/(tabs)/morning" asChild>
           <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
@@ -108,7 +113,38 @@ export default function HomeScreen() {
             </BlurView>
           </TouchableOpacity>
         </Link>
-      </View>
+
+        {/* After Prayer Card */}
+        <Link href="/(tabs)/after-prayer" asChild>
+          <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
+            <BlurView intensity={50} tint="light" style={styles.card}>
+              <LinearGradient
+                colors={[
+                  "rgba(66, 165, 245, 0.5)",
+                  "rgba(33, 150, 243, 0.4)",
+                  "rgba(21, 101, 192, 0.3)",
+                ]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.cardGradient}
+              >
+                <View style={styles.cardContent}>
+                  <View style={styles.emojiSection}>
+                    <Text style={styles.cardEmoji}>🕌</Text>
+                  </View>
+                  <View style={styles.textSection}>
+                    <Text style={styles.cardTitleUrdu}>نماز کے بعد اذکار</Text>
+                    <Text style={styles.cardTitleEng}>After Prayer Azkar</Text>
+                    <View style={styles.badge}>
+                      <Text style={styles.badgeText}>ہر نماز کے بعد</Text>
+                    </View>
+                  </View>
+                </View>
+              </LinearGradient>
+            </BlurView>
+          </TouchableOpacity>
+        </Link>
+      </ScrollView>
 
       {/* Footer Info */}
       <View style={styles.footer}>
@@ -192,14 +228,14 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flex: 1,
+  },
+  cardsContent: {
     paddingHorizontal: 20,
     gap: 20,
     paddingBottom: 16,
   },
   cardWrapper: {
-    flex: 1,
-    maxHeight: 180,
-    minHeight: 160,
+    height: 170,
   },
   card: {
     flex: 1,
