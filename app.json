@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ashkar-app",
-    "slug": "ashkar-app",
+    "name": "ashkaar-app",
+    "slug": "ashkaar-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ashkarapp",
+    "scheme": "ashkaarapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

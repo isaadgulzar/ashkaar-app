@@ -1,98 +1,347 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// app/(tabs)/index.tsx
+// Home Screen - Main navigation with Morning and Evening Azkar cards
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import { Link, useRouter } from "expo-router";
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+// import AppLogo from '../../components/app-logo';
+
+const { width } = Dimensions.get("window");
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
+    <LinearGradient
+      colors={["#FFD93D", "#FF9A56", "#A8D8EA"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0.5, y: 1 }}
+      style={styles.container}
+    >
+      {/* Header */}
+      <View style={styles.header}>
+        {/* Logo */}
+        {/* <AppLogo size={100} /> */}
+
+        <Text style={styles.appTitle}>عَشْکَار</Text>
+        <Text style={styles.appSubtitle}>ASHKAAR</Text>
+
+        {/* Quranic Tagline */}
+        <View style={styles.taglineBox}>
+          <Text style={styles.taglineArabic}>
+            وَسَبِّحْ بِحَمْدِ رَبِّكَ بِالْعَشِيِّ وَالْإِبْكَارِ
+          </Text>
+          <Text style={styles.taglineTranslation}>
+            "Exalt [Allah] with praise in the evening and morning"
+          </Text>
+          <Text style={styles.taglineReference}>— Surah Ghafir 40:55</Text>
+        </View>
+      </View>
+
+      {/* Cards */}
+      <ScrollView
+        style={styles.cardsContainer}
+        contentContainerStyle={styles.cardsContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Morning Card */}
+        <Link href="/(tabs)/morning" asChild>
+          <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
+            <BlurView intensity={50} tint="light" style={styles.card}>
+              <LinearGradient
+                colors={[
+                  "rgba(255, 217, 61, 0.5)",
+                  "rgba(255, 154, 86, 0.4)",
+                  "rgba(168, 216, 234, 0.3)",
+                ]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.cardGradient}
+              >
+                <View style={styles.cardContent}>
+                  <View style={styles.emojiSection}>
+                    <Text style={styles.cardEmoji}>🌅</Text>
+                  </View>
+                  <View style={styles.textSection}>
+                    <Text style={styles.cardTitleUrdu}>صبح کے اذکار</Text>
+                    <Text style={styles.cardTitleEng}>Morning Azkar</Text>
+                    <View style={styles.badge}>
+                      <Text style={styles.badgeText}>فجر کے بعد</Text>
+                    </View>
+                  </View>
+                </View>
+              </LinearGradient>
+            </BlurView>
+          </TouchableOpacity>
         </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        {/* Evening Card */}
+        <Link href="/(tabs)/evening" asChild>
+          <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
+            <BlurView intensity={50} tint="light" style={styles.card}>
+              <LinearGradient
+                colors={[
+                  "rgba(53, 92, 125, 0.5)",
+                  "rgba(108, 91, 123, 0.4)",
+                  "rgba(246, 114, 128, 0.3)",
+                ]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.cardGradient}
+              >
+                <View style={styles.cardContent}>
+                  <View style={styles.emojiSection}>
+                    <Text style={styles.cardEmoji}>🌙</Text>
+                  </View>
+                  <View style={styles.textSection}>
+                    <Text style={styles.cardTitleUrdu}>شام کے اذکار</Text>
+                    <Text style={styles.cardTitleEng}>Evening Azkar</Text>
+                    <View style={styles.badge}>
+                      <Text style={styles.badgeText}>عصر کے بعد</Text>
+                    </View>
+                  </View>
+                </View>
+              </LinearGradient>
+            </BlurView>
+          </TouchableOpacity>
+        </Link>
+
+        {/* After Prayer Card */}
+        <Link href="/(tabs)/after-prayer" asChild>
+          <TouchableOpacity style={styles.cardWrapper} activeOpacity={0.85}>
+            <BlurView intensity={50} tint="light" style={styles.card}>
+              <LinearGradient
+                colors={[
+                  "rgba(66, 165, 245, 0.5)",
+                  "rgba(33, 150, 243, 0.4)",
+                  "rgba(21, 101, 192, 0.3)",
+                ]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.cardGradient}
+              >
+                <View style={styles.cardContent}>
+                  <View style={styles.emojiSection}>
+                    <Text style={styles.cardEmoji}>🕌</Text>
+                  </View>
+                  <View style={styles.textSection}>
+                    <Text style={styles.cardTitleUrdu}>نماز کے بعد اذکار</Text>
+                    <Text style={styles.cardTitleEng}>After Prayer Azkar</Text>
+                    <View style={styles.badge}>
+                      <Text style={styles.badgeText}>ہر نماز کے بعد</Text>
+                    </View>
+                  </View>
+                </View>
+              </LinearGradient>
+            </BlurView>
+          </TouchableOpacity>
+        </Link>
+      </ScrollView>
+
+      {/* Footer Info */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>ہر ذکر کو ٹیپ کریں اور شمار کریں</Text>
+        <Text style={styles.footerTextEng}>
+          Tap each dhikr to count as you recite
+        </Text>
+      </View>
+
+      {/* Admin Link (Hidden - for development) */}
+      <Link href="/admin" asChild>
+        <TouchableOpacity style={styles.adminLink}>
+          <Text style={styles.adminText}>⚙️</Text>
+        </TouchableOpacity>
+      </Link>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    paddingTop: 60,
   },
-  stepContainer: {
-    gap: 8,
+  header: {
+    alignItems: "center",
+    marginBottom: 32,
+    paddingHorizontal: 20,
+  },
+  appTitle: {
+    fontSize: 56,
+    fontWeight: "700",
+    color: "#7C4A2C",
+    marginBottom: 4,
+    marginTop: 16,
+    textShadowColor: "rgba(0, 0, 0, 0.1)",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+  },
+  appSubtitle: {
+    fontSize: 22,
+    fontWeight: "600",
+    color: "#B5793A",
+    marginBottom: 24,
+    letterSpacing: 4,
+  },
+  taglineBox: {
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1.5,
+    borderColor: "rgba(255, 255, 255, 0.9)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    maxWidth: width - 48,
+  },
+  taglineArabic: {
+    fontSize: 18,
+    color: "#7C4A2C",
+    textAlign: "center",
     marginBottom: 8,
+    fontWeight: "600",
+    lineHeight: 28,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  taglineTranslation: {
+    fontSize: 13,
+    color: "#B5793A",
+    textAlign: "center",
+    fontStyle: "italic",
+    marginBottom: 4,
+    lineHeight: 20,
+  },
+  taglineReference: {
+    fontSize: 11,
+    color: "#B5793A",
+    textAlign: "center",
+    fontWeight: "600",
+    opacity: 0.8,
+  },
+  cardsContainer: {
+    flex: 1,
+  },
+  cardsContent: {
+    paddingHorizontal: 20,
+    gap: 20,
+    paddingBottom: 16,
+  },
+  cardWrapper: {
+    height: 170,
+  },
+  card: {
+    flex: 1,
+    borderRadius: 28,
+    overflow: "hidden",
+    borderWidth: 1.5,
+    borderColor: "rgba(255, 255, 255, 0.7)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.2,
+    shadowRadius: 24,
+    elevation: 10,
+  },
+  cardGradient: {
+    flex: 1,
+    paddingHorizontal: 28,
+    paddingVertical: 10,
+  },
+  cardContent: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+  },
+  emojiSection: {
+    width: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textSection: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingLeft: 8,
+  },
+  cardEmoji: {
+    fontSize: 60,
+    lineHeight: 70,
+  },
+  cardTitleUrdu: {
+    fontSize: 26,
+    fontWeight: "700",
+    color: "#1f2937",
+    marginBottom: 4,
+    lineHeight: 32,
+  },
+  cardTitleEng: {
+    fontSize: 13,
+    color: "#4b5563",
+    marginBottom: 10,
+    fontWeight: "500",
+  },
+  badge: {
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.8)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#374151",
+  },
+  footer: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    paddingBottom: 24,
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  footerText: {
+    fontSize: 16,
+    color: "#7C4A2C",
+    textAlign: "center",
+    marginBottom: 4,
+  },
+  footerTextEng: {
+    fontSize: 13,
+    color: "#B5793A",
+    textAlign: "center",
+    opacity: 0.8,
+  },
+  adminLink: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1.5,
+    borderColor: "rgba(255, 255, 255, 0.9)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+  },
+  adminText: {
+    fontSize: 20,
   },
 });
